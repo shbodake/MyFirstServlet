@@ -30,7 +30,11 @@ public class LoginServlet extends HttpServlet {
         Pattern pattern = Pattern.compile(namePattern);
         Matcher match = pattern.matcher(user);
 
+        // Regex Pattern For Password
         String pwd = request.getParameter("pwd");
+        String pass = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()]).{8,}$";
+        Pattern pattern2 = Pattern.compile(pass);
+        Matcher match2 = pattern2.matcher(pwd);
         String userID = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
         if (userID.equals(user) && password.equals(pwd)) {
