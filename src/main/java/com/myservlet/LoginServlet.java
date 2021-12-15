@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(
         description = "Login Servlet Testing",
@@ -22,10 +24,13 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // get Request parameters for userId and Password
+        // Regex Pattern For UserName
         String user = request.getParameter("user");
+        String namePattern = "^[A-Z]{1}[a-z]{3,}$";
+        Pattern pattern = Pattern.compile(namePattern);
+        Matcher match = pattern.matcher(user);
+
         String pwd = request.getParameter("pwd");
-        // get servlet configuration init parameters
         String userID = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
         if (userID.equals(user) && password.equals(pwd)) {
